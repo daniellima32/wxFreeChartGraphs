@@ -208,7 +208,7 @@ public:
 
 		XYAreaRenderer *renderer2 = new XYAreaRenderer(true);
 		dataset2->SetRenderer(renderer2);
-		renderer->SetSerieColour(0, &color2);
+		renderer2->SetSerieColour(0, &color2);
 
 		// add our dataset to plot
 		plot->AddDataset(dataset);
@@ -284,27 +284,63 @@ public:
 			wxT("Cat 4"),
 			wxT("Cat 5"),
 		};
+
+		wxString names2[] = { // category names
+			wxT("Cat 6"),
+			wxT("Cat 7"),
+			wxT("Cat 8"),
+			wxT("Cat 9"),
+			wxT("Cat 10"),
+		};
+
 		// serie 1 values - we have only one serie
 		double values[] = {
 			10.0,
 			20.0,
 			5.0,
-			50.0,
-			25.0,
+			14.0,
+			12.0,
 		};
+
+		// serie 2 values
+		double values2[] = {
+			12.0,
+			21.0,
+			7.0,
+			10.0,
+			9.0,
+		};
+
+		// colors for first and second datasets
+		wxColour color1 = wxColour(255, 0, 0);
+		wxColour color2 = wxColour(0, 0, 255);
 
 		// Create dataset
 		CategorySimpleDataset *dataset = new CategorySimpleDataset(names, WXSIZEOF(names));
+		CategorySimpleDataset *dataset2 = new CategorySimpleDataset(names2, WXSIZEOF(names2));
 
 		// add serie to it
 		dataset->AddSerie(wxT("Serie 0"), values, WXSIZEOF(values));
+
+		dataset2->AddSerie(wxT("Serie 1"), values2, WXSIZEOF(values2));
 
 		// create normal bar type with bar width = 10
 		BarType *barType = new NormalBarType(30); //Deve dizer se inverte ou não aqui
 		barType->setOriented(true);
 
+		BarType *barType2 = new NormalBarType(30); //Deve dizer se inverte ou não aqui
+		barType2->setOriented(true);
+
 		// Set bar renderer for it
-		dataset->SetRenderer(new BarRenderer(barType, true));
+		BarRenderer *br1 = new BarRenderer(barType, true);
+		br1->SetSerieColour(0, &color1);
+
+		dataset->SetRenderer(br1);
+
+		BarRenderer *br2 = new BarRenderer(barType2);
+		br2->SetSerieColour(0, &color2);
+		
+		dataset2->SetRenderer(br2);
 
 		// Create bar plot
 		BarPlot *plot = new BarPlot();
@@ -319,16 +355,32 @@ public:
 		bottomAxis->SetMargins(20, 20);
 		plot->AddAxis(bottomAxis);
 
+		NumberAxis *rightAxis = new NumberAxis(AXIS_RIGHT);
+		rightAxis->SetMargins(5, 0);
+		plot->AddAxis(rightAxis);
+
+		// Create bottom axis, set it's margins, and add it to plot
+		CategoryAxis *topAxis = new CategoryAxis(AXIS_TOP);
+		topAxis->SetMargins(20, 20);
+		plot->AddAxis(topAxis);
+
 		// Add dataset to plot
 		plot->AddDataset(dataset);
+		plot->AddDataset(dataset2);
 
 		plot->SetBackground(new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
 
 		// Link first dataset with horizontal axis
 		plot->LinkDataHorizontalAxis(0, 0);
 
+		//novo
+		plot->LinkDataHorizontalAxis(1, 1);
+
 		// Link first dataset with vertical axis
 		plot->LinkDataVerticalAxis(0, 0);
+
+		//novo
+		plot->LinkDataVerticalAxis(1, 1);
 
 		// Show a legend at the centre-right position.
 		Legend* legend = new Legend(wxCENTER, wxRIGHT, new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
@@ -344,10 +396,115 @@ public:
 	}
 };
 
+class SigaDemo3D : public ChartDemo
+{
+public:
+	SigaDemo3D()
+		: ChartDemo(wxT("Siga Demo 2 - Multiple axis 1"))
+	{
+	}
+
+	virtual Chart *Create()
+	{
+		// first dataset values
+		double values1[][2] = {
+			{ 1, 1 },
+			{ 2, 3 },
+			{ 5, 2 },
+			{ 6, 2 },
+			{ 7, 3 },
+			{ 8, 15 },
+			{ 9, 2 },
+		};
+
+		// XY data for first series
+		wxVector<wxRealPoint> data2;
+
+		data2.push_back(wxRealPoint(0, 2));
+		data2.push_back(wxRealPoint(1, 2));
+		data2.push_back(wxRealPoint(2, 4));
+		data2.push_back(wxRealPoint(3, 3));
+		data2.push_back(wxRealPoint(4, 5));
+		data2.push_back(wxRealPoint(5, 5));
+		data2.push_back(wxRealPoint(6, 7));
+		data2.push_back(wxRealPoint(7, 1));
+		data2.push_back(wxRealPoint(8, 2));
+		data2.push_back(wxRealPoint(9, 0.5));
+		data2.push_back(wxRealPoint(10, 1));
+
+	// colors for first and second datasets
+		wxColour color1 = wxColour(255, 0, 0);
+		wxColour color2 = wxColour(0, 0, 255);
+
+		// create xy plot
+		XYPlot *plot = new XYPlot();
+
+		// create first dataset
+		XYSimpleDataset *dataset1 = new XYSimpleDataset();
+		// add serie to it
+		dataset1->AddSerie((double *)values1, WXSIZEOF(values1));
+
+		XYSimpleDataset *dataset2 = new XYSimpleDataset();
+
+		dataset2->AddSerie(new XYSerie(data2));
+
+		// create renderer for first dataset
+		XYLineRenderer *renderer1 = new XYLineRenderer(); //Desenha apenas as linhas de dados
+		renderer1->SetSerieColour(0, &color1);
+
+		XYAreaRenderer *renderer2 = new XYAreaRenderer(true);
+		dataset2->SetRenderer(renderer2);
+		renderer2->SetSerieColour(0, &color2);
+		
+
+		// add first dataset to plot
+		plot->AddDataset(dataset1);
+
+		// set it to first dataset
+		dataset1->SetRenderer(renderer1);
+
+		plot->AddDataset(dataset2);
+
+		// create left axis for first dataset
+		//Desenha os números nos eixos, os seus marcadores e o titulo de cada eixo
+		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+		leftAxis->SetLabelTextColour(color1);
+		leftAxis->SetTitle("Left Axis");
+		plot->AddAxis(leftAxis);
+
+		// create top axis for first dataset
+		NumberAxis *topAxis = new NumberAxis(AXIS_TOP);
+		topAxis->SetLabelTextColour(color1);
+		topAxis->SetTitle("Top Axis");
+		plot->AddAxis(topAxis);
+
+		//NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT, true);
+		NumberAxis *rightAxis = new NumberAxis(AXIS_RIGHT, true);
+		plot->AddAxis(rightAxis);
+		NumberAxis *bottomAxis = new NumberAxis(AXIS_BOTTOM, true);
+		plot->AddAxis(bottomAxis);
+		//NumberAxis *topAxis = new NumberAxis(AXIS_TOP, true);
+
+		// link first dataset with left axis
+		plot->LinkDataVerticalAxis(0, 0);
+		// link second dataset with right axis
+		plot->LinkDataVerticalAxis(1, 1);
+
+		// link first dataset with top axis
+		plot->LinkDataHorizontalAxis(0, 0);
+
+		// link second dataset with bottom axis
+		plot->LinkDataHorizontalAxis(1, 1);
+
+		return new Chart(plot, GetName());
+	}
+};
+
 ChartDemo *sigaDemos3[] = {
 		new SigaDemo3A(),
 		new SigaDemo3B(),
-		new SigaDemo3C()
+		new SigaDemo3C(),
+		new SigaDemo3D()
 };
 
 int sigaDemos3Count = WXSIZEOF(sigaDemos3);
