@@ -776,11 +776,69 @@ public:
 		dataset2->SetRenderer(renderer2);
 		renderer2->SetSerieColour(0, &color2);
 
+		//Configuration of dataset2 is done
+		//Starting the configuration of dataset3
+		wxString names[] = { // category names
+			wxT("Cat 0"),
+			wxT("Cat 1"),
+			wxT("Cat 2"),
+			wxT("Cat 3"),
+			wxT("Cat 4"),
+			wxT("Cat 5"),
+			wxT("Cat 6"),
+			wxT("Cat 7"),
+			wxT("Cat 8"),
+			wxT("Cat 9")
+		};
+		double values[] = {
+			10.0,
+			20.0,
+			5.0,
+			14.0,
+			12.0,
+			10.0,
+			8.0,
+			7.0,
+			3.0,
+			5.0
+		};
+		CategorySimpleDataset *dataset3 = new CategorySimpleDataset(names, WXSIZEOF(names));
+		dataset3->AddSerie(wxT("Serie 0"), values, WXSIZEOF(values));
+
+		// create normal bar type with bar width = 10
+		BarType *barType = new NormalBarType(30); //Deve dizer se inverte ou não aqui
+		barType->setOriented(true);
+
+		// Set bar renderer for it
+		BarRenderer *br1 = new BarRenderer(barType, true);
+		dataset3->SetRenderer(br1);
+
+		// Why doesn't SetSerieColour work for bars?
+		br1->SetBarDraw(0, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#007F7F"))));
+		
+		//It should be this type of plot
+		// Create bar plot
+		//BarPlot *plot = new BarPlot();
+
+		NumberAxis *rightAxisBAR = new NumberAxis(AXIS_RIGHT);
+		rightAxisBAR->SetMargins(5, 0);
+		plot->AddAxis(rightAxisBAR);
+
+		// Create bottom axis, set it's margins, and add it to plot
+		CategoryAxis *topAxisBAR = new CategoryAxis(AXIS_TOP);
+		topAxisBAR->SetMargins(20, 20);
+		plot->AddAxis(topAxisBAR);
+		
+		//Configuration of dataset3 is done
+
 		//Add both datasets
 
 		//Essa ordem de adição altera a ordem do paint
 		plot->AddDataset(dataset2); // add the second dataset to plot
 		plot->AddDataset(dataset1); // add the first dataset to plot
+
+		//Adds the thid dataset
+		plot->AddDataset(dataset3); // add the first dataset to plot
 
 		// create left axis for first dataset
 		//Desenha os números nos eixos, os seus marcadores e o titulo de cada eixo
@@ -802,14 +860,19 @@ public:
 
 		// link first dataset with left axis
 		plot->LinkDataVerticalAxis(1, 0);
-		// link second dataset with right axis
-		plot->LinkDataVerticalAxis(0, 1);
+		// link second dataset with right axis -->left
+		plot->LinkDataVerticalAxis(0, 0);
 
-		// link first dataset with top axis
-		plot->LinkDataHorizontalAxis(1, 0);
+		// link first dataset with top axis -->bottom
+		plot->LinkDataHorizontalAxis(1, 1);
 
 		// link second dataset with bottom axis
 		plot->LinkDataHorizontalAxis(0, 1);
+
+
+		//links to the third
+		plot->LinkDataVerticalAxis(2, 1);
+		plot->LinkDataHorizontalAxis(2, 0);
 
 		return new Chart(plot, GetName());
 	}
