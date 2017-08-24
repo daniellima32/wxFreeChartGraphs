@@ -333,14 +333,20 @@ public:
 
 		// Set bar renderer for it
 		BarRenderer *br1 = new BarRenderer(barType, true);
-		br1->SetSerieColour(0, &color1);
+		
 
 		dataset->SetRenderer(br1);
+		//br1->SetSerieColour(0, &color1); //do not work with bar
 
 		BarRenderer *br2 = new BarRenderer(barType2);
-		br2->SetSerieColour(0, &color2);
+		
 		
 		dataset2->SetRenderer(br2);
+		//br2->SetSerieColour(0, &color2); //do not work with bar
+
+		// Why doesn't SetSerieColour work for bars?
+		br1->SetBarDraw(0, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#007F7F"))));
+		br2->SetBarDraw(1, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#EA4B32"))));
 
 		// Create bar plot
 		BarPlot *plot = new BarPlot();
