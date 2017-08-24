@@ -709,7 +709,111 @@ public:
 	}
 };
 
+class SigaDemo3G : public ChartDemo
+{
+public:
+	SigaDemo3G()
+		: ChartDemo(wxT("Siga Demo 2 - Multiple axis 1"))
+	{
+	}
 
+	virtual Chart *Create()
+	{
+		// colors for first and second datasets
+		wxColour color1 = wxColour(255, 0, 0);
+		wxColour color2 = wxColour(0, 0, 255);
+
+		// create xy plot that will be used by both graphs
+		XYPlot *plot = new XYPlot();
+
+		// first dataset values
+		double values1[][2] = {
+			{ 0, 2 },
+			{ 1, 1 },
+			{ 2, 1 },
+			{ 3, 1.5 },
+			{ 4, 2.7 },
+			{ 5, 2 },
+			{ 6, 2 },
+			{ 7, 3 },
+			{ 8, 15 },
+			{ 9, 2 },
+		};
+
+		// create first dataset
+		XYSimpleDataset *dataset1 = new XYSimpleDataset();
+		// add serie to it
+		dataset1->AddSerie((double *)values1, WXSIZEOF(values1));
+
+		// create renderer for first dataset
+		XYLineRenderer *renderer1 = new XYLineRenderer(); //Desenha apenas as linhas de dados
+		renderer1->SetSerieColour(0, &color1);
+
+		// set it to first dataset
+		dataset1->SetRenderer(renderer1);
+
+		//Configuration of dataset1 is done
+		//Starting the configuration of dataset2
+
+		// XY data for first series
+		wxVector<wxRealPoint> data2;
+
+		data2.push_back(wxRealPoint(0, 1));
+		data2.push_back(wxRealPoint(1, 2));
+		data2.push_back(wxRealPoint(2, 4));
+		data2.push_back(wxRealPoint(3, 3));
+		data2.push_back(wxRealPoint(4, 5));
+		data2.push_back(wxRealPoint(5, 5));
+		data2.push_back(wxRealPoint(6, 7));
+		data2.push_back(wxRealPoint(7, 1));
+		data2.push_back(wxRealPoint(8, 2));
+		data2.push_back(wxRealPoint(9, 0.5));
+
+		XYSimpleDataset *dataset2 = new XYSimpleDataset();
+		dataset2->AddSerie(new XYSerie(data2));
+
+		XYAreaRenderer *renderer2 = new XYAreaRenderer();
+		dataset2->SetRenderer(renderer2);
+		renderer2->SetSerieColour(0, &color2);
+
+		//Add both datasets
+
+		//Essa ordem de adição altera a ordem do paint
+		plot->AddDataset(dataset2); // add the second dataset to plot
+		plot->AddDataset(dataset1); // add the first dataset to plot
+
+		// create left axis for first dataset
+		//Desenha os números nos eixos, os seus marcadores e o titulo de cada eixo
+		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+		leftAxis->SetLabelTextColour(color1);
+		leftAxis->SetTitle("Left Axis");
+		plot->AddAxis(leftAxis);
+
+		// create top axis for first dataset
+		NumberAxis *topAxis = new NumberAxis(AXIS_TOP);
+		topAxis->SetLabelTextColour(color1);
+		topAxis->SetTitle("Top Axis");
+		plot->AddAxis(topAxis);
+
+		NumberAxis *rightAxis = new NumberAxis(AXIS_RIGHT);
+		plot->AddAxis(rightAxis);
+		NumberAxis *bottomAxis = new NumberAxis(AXIS_BOTTOM);
+		plot->AddAxis(bottomAxis);
+
+		// link first dataset with left axis
+		plot->LinkDataVerticalAxis(1, 0);
+		// link second dataset with right axis
+		plot->LinkDataVerticalAxis(0, 1);
+
+		// link first dataset with top axis
+		plot->LinkDataHorizontalAxis(1, 0);
+
+		// link second dataset with bottom axis
+		plot->LinkDataHorizontalAxis(0, 1);
+
+		return new Chart(plot, GetName());
+	}
+};
 
 ChartDemo *sigaDemos3[] = {
 		new SigaDemo3A(),
@@ -717,7 +821,8 @@ ChartDemo *sigaDemos3[] = {
 		new SigaDemo3C(),
 		new SigaDemo3D(),
 		new SigaDemo3E(),
-		new SigaDemo3F()
+		new SigaDemo3F(),
+		new SigaDemo3G()
 };
 
 int sigaDemos3Count = WXSIZEOF(sigaDemos3);
