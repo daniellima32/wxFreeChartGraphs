@@ -192,6 +192,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\wx\areadraw.h" />
     <ClInclude Include="..\include\wx\art.h" />
+    <ClInclude Include="..\include\wx\AxisMultiPlot.h" />
     <ClInclude Include="..\include\wx\axisplot.h" />
     <ClInclude Include="..\include\wx\axis\axis.h" />
     <ClInclude Include="..\include\wx\axis\categoryaxis.h" />
@@ -299,6 +300,7 @@
     <ClCompile Include="..\src\symbol.cpp" />
     <ClCompile Include="..\src\title.cpp" />
     <ClCompile Include="..\src\tooltips.cpp" />
+    <ClCompile Include="..\src\wx\AxisMultiPlot.cpp" />
     <ClCompile Include="..\src\xyz\bubbleplot.cpp" />
     <ClCompile Include="..\src\xyz\xyzdataset.cpp" />
     <ClCompile Include="..\src\xyz\xyzrenderer.cpp" />

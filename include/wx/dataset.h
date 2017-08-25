@@ -47,8 +47,7 @@ public:
  * Base class for all datasets (XYDatasets, XYZDatasets, CategoryDatasets, OHLCDatasets, etc).
  *
  */
-class WXDLLIMPEXP_FREECHART Dataset : public wxObject,
-    public RefObject, public Observable<DatasetObserver>, public DrawObserver
+class WXDLLIMPEXP_FREECHART Dataset : public wxObject, public RefObject, public Observable<DatasetObserver>, public DrawObserver
 {
     DECLARE_CLASS(Dataset)
 public:

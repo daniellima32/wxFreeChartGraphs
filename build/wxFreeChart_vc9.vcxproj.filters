@@ -204,6 +204,9 @@
     <ClInclude Include="..\include\wx\zoompan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\wx\AxisMultiPlot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\areadraw.cpp">
@@ -381,6 +384,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\zoompan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wx\AxisMultiPlot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

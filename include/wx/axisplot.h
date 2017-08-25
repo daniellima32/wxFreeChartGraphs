@@ -53,8 +53,7 @@ WX_DECLARE_USER_EXPORTED_OBJARRAY(DataAxisLink, DataAxisLinkArray, WXDLLIMPEXP_F
 /**
  * Base class for plots that supports axes.
  */
-class WXDLLIMPEXP_FREECHART AxisPlot : public Plot,
-    public DrawObserver, public DatasetObserver, public AxisObserver,
+class WXDLLIMPEXP_FREECHART AxisPlot : public Plot, public DrawObserver, public DatasetObserver, public AxisObserver,
     public ChartPanelObserver
 {
 public:
@@ -69,6 +68,8 @@ public:
      * @param axis axis to be added
      */
     void AddAxis(Axis *axis);
+
+	virtual bool HasData();
 
     /**
      * Adds dataset to plot.
@@ -240,6 +241,10 @@ public:
     // ChartPanelObserver
     //
     virtual void ChartMouseDown(wxPoint &pt, int key);
+	//
+	// Plot
+	//
+	virtual void DrawData(ChartDC& cdc, wxRect rc);
 
 protected:
     //
@@ -271,14 +276,9 @@ protected:
 
     bool m_drawGridVertical;
     bool m_drawGridHorizontal;
+	
+protected:
 
-private:
-    //
-    // Plot
-    //
-    virtual void DrawData(ChartDC& cdc, wxRect rc);
-
-    virtual bool HasData();
 
     virtual void ChartPanelChanged(wxChartPanel *oldPanel, wxChartPanel *newPanel);
 
@@ -320,7 +320,7 @@ private:
      * @param dc device context
      * @param rcData data area rectangle
      */
-    void DrawGridLines(wxDC &dc, wxRect rcData);
+    virtual void DrawGridLines(wxDC &dc, wxRect rcData);
 
     /**
      * Draws markers.
