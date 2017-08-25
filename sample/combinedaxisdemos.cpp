@@ -14,7 +14,7 @@
 #include <wx/xy/xylinerenderer.h>
 #include <wx/xy/xyhistorenderer.h>
 #include <wx/xy/xysimpledataset.h>
-
+#include <wx/axismultiplot.h>
 #include <wx/multiplot.h>
 
 /**
@@ -158,7 +158,9 @@ public:
                 { 66, 4, },
         };
 
-        MultiPlot *multiPlot = new MultiPlot(0, 1, 5, 5);
+		AxisMultiPlot *multiPlot = new AxisMultiPlot();
+
+		
 
         // create left axis, that will be shared between two plots
         NumberAxis *bottomAxis = new NumberAxis(AXIS_BOTTOM);
@@ -181,9 +183,15 @@ public:
         // create left number axes
         NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
 
+		AxisShare *leftAxis1Shared = new AxisShare(leftAxis1);
+		leftAxis1Shared->SetShareVisible(true);
+
         // create axis share for second plot to share leftAxis between plots
         // by default it will be invisible
         AxisShare *bottomAxis1 = new AxisShare(bottomAxis);
+
+		//AxisShare *bottomAxis1Shared = new AxisShare(bottomAxis1);
+		bottomAxis1->SetShareVisible(true);
 
         // add axes to plot
         plot1->AddAxis(leftAxis1);
@@ -230,10 +238,14 @@ public:
         plot2->LinkDataHorizontalAxis(0, 0);
 
         // add first plot to multiplot
-        multiPlot->AddPlot(plot1);
+        multiPlot->addPlot(plot1);
 
         // add second plot to multiplot
-        multiPlot->AddPlot(plot2);
+        multiPlot->addPlot(plot2);
+
+		multiPlot->AddAxis(leftAxis1Shared);
+		multiPlot->AddAxis(bottomAxis1);
+		
 
         // and finally create chart
         return new Chart(multiPlot, GetName());
