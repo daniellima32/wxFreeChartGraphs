@@ -161,7 +161,7 @@ double Axis::ToData(wxDC& WXUNUSED(dc), int minCoord, int gRange, wxCoord g)
 // AxisShare
 //
 AxisShare::AxisShare(Axis *axis)
-: Axis(axis->GetLocation())
+: Axis(axis->GetLocation(), axis->isOriented())
 {
     m_axis = axis;
     m_axis->m_shareCount++;

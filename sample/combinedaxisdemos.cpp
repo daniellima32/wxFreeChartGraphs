@@ -181,7 +181,7 @@ public:
         plot1->AddDataset(dataset1);
 
         // create left number axes
-        NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
+        NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true); //se colocar o true ele perde a ref
 
 		AxisShare *leftAxis1Shared = new AxisShare(leftAxis1);
 		leftAxis1Shared->SetShareVisible(true);
@@ -222,7 +222,8 @@ public:
         plot2->AddDataset(dataset2);
 
         // create left number axes
-        NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT);
+        NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT, true); //fica invertido
+		//NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT);
 
         // create axis share for second plot to share leftAxis between plots
         AxisShare *bottomAxis2 = new AxisShare(bottomAxis);
@@ -243,8 +244,11 @@ public:
         // add second plot to multiplot
         multiPlot->addPlot(plot2);
 
-		multiPlot->AddAxis(leftAxis1Shared);
-		multiPlot->AddAxis(bottomAxis1);
+		//multiPlot->AddAxis(leftAxis1Shared);
+		//multiPlot->AddAxis(bottomAxis1);
+
+		multiPlot->AddAxis(leftAxis2);  //this
+		multiPlot->AddAxis(bottomAxis2); //this
 		
 
         // and finally create chart
