@@ -19,6 +19,7 @@
 #include <wx/category/categorysimpledataset.h>
 #include <wx/bars/barplot.h>
 #include <wx/axis/categoryaxis.h>
+#include <wx/xy/xyarearenderer.h>
 
 /**
  * Combined axis demo.
@@ -558,7 +559,7 @@ class CombinedAxisDemo5 : public ChartDemo
 {
 public:
 	CombinedAxisDemo5()
-		: ChartDemo(wxT("example with bar and line"))
+		: ChartDemo(wxT("example with bar and line without some axis"))
 	{
 	}
 
@@ -730,11 +731,269 @@ public:
 	}
 };
 
+
+class CombinedAxisDemo6 : public ChartDemo
+{
+public:
+	CombinedAxisDemo6()
+		: ChartDemo(wxT("example with bar, line and area"))
+	{
+	}
+
+	virtual Chart *Create()
+	{
+		wxString names[] = { // category names
+			wxT("Cat 1"),
+			wxT("Cat 2"),
+			wxT("Cat 3"),
+			wxT("Cat 4"),
+			wxT("Cat 5"),
+		};
+
+		// serie 1 values - we have only one serie
+		double values[] = {
+			10.0,
+			20.0,
+			5.0,
+			14.0,
+			12.0,
+		};
+
+		// colors for first and second datasets
+		wxColour color1 = wxColour(255, 0, 0);
+		wxColour color2 = wxColour(0, 0, 255);
+
+		// Create dataset
+		CategorySimpleDataset *dataset = new CategorySimpleDataset(names, WXSIZEOF(names));
+
+		// add serie to it
+		dataset->AddSerie(wxT("Serie 0"), values, WXSIZEOF(values));
+
+		// create normal bar type with bar width = 10
+		BarType *barType = new NormalBarType(30); //Deve dizer se inverte ou não aqui
+		barType->setOriented(true);
+
+		// Set bar renderer for it
+		BarRenderer *br1 = new BarRenderer(barType, true);
+
+		dataset->SetRenderer(br1);
+		//br1->SetSerieColour(0, &color1); //do not work with bar
+
+		//BarRenderer *br2 = new BarRenderer(barType2);
+
+
+		//dataset2->SetRenderer(br2);
+		//br2->SetSerieColour(0, &color2); //do not work with bar
+
+		// Why doesn't SetSerieColour work for bars?
+		br1->SetBarDraw(0, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#007F7F"))));
+		//br2->SetBarDraw(1, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#EA4B32"))));
+
+		// Create bar plot
+		BarPlot *plot1 = new BarPlot();
+
+		// Create left number axis, set it's margins, and add it to plot
+		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT, true);
+		leftAxis->SetMargins(5, 0);
+		plot1->AddAxis(leftAxis);
+
+		// Create bottom axis, set it's margins, and add it to plot
+		CategoryAxis *bottomAxis = new CategoryAxis(AXIS_BOTTOM, true);
+		bottomAxis->SetMargins(20, 20);
+		plot1->AddAxis(bottomAxis);
+
+		NumberAxis *rightAxis = new NumberAxis(AXIS_RIGHT);
+		rightAxis->SetMargins(5, 0);
+		plot1->AddAxis(rightAxis);
+
+		// Create bottom axis, set it's margins, and add it to plot
+		CategoryAxis *topAxis = new CategoryAxis(AXIS_TOP);
+		topAxis->SetMargins(20, 20);
+		plot1->AddAxis(topAxis);
+
+		// Add dataset to plot
+		plot1->AddDataset(dataset);
+		//plot->AddDataset(dataset2);
+
+		plot1->SetBackground(new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
+
+		// Link first dataset with horizontal axis
+		plot1->LinkDataHorizontalAxis(0, 0);
+
+		//novo
+		//plot->LinkDataHorizontalAxis(1, 1);
+
+		// Link first dataset with vertical axis
+		plot1->LinkDataVerticalAxis(0, 0);
+
+		//novo
+		//plot->LinkDataVerticalAxis(1, 1);
+
+		// Show a legend at the centre-right position.
+		Legend* legend = new Legend(wxCENTER, wxRIGHT, new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
+		plot1->SetLegend(legend);
+
+		// Create a custom title.
+		TextElement title(GetName());
+
+		AxisMultiPlot *multiPlot = new AxisMultiPlot();
+		// add second plot to multiplot
+		//multiPlot->addPlot(plot1); //ADICIONANDO PRIMEIRO PLOT
+
+		multiPlot->AddAxis(leftAxis);
+		multiPlot->AddAxis(bottomAxis);
+
+		// The beginning of the SECOND graph
+
+		// first plot data
+		double data1[][2] = {
+			{ 10, 20, },
+			{ 17, 30, },
+			{ 25, 4, },
+			{ 43, 16, },
+			{ 65, 34, }
+		};
+
+		// create first plot
+		XYPlot *plot2 = new XYPlot();
+
+		// create dataset
+		XYSimpleDataset *dataset1 = new XYSimpleDataset();
+
+		// and add serie to it
+		dataset1->AddSerie((double *)data1, WXSIZEOF(data1));
+
+		// set line renderer to dataset
+		dataset1->SetRenderer(new XYLineRenderer());
+
+		// add our dataset to plot
+		plot2->AddDataset(dataset1);
+
+		// create left number axes
+		NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true);
+		//NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
+
+		AxisShare *leftAxis1Shared = new AxisShare(leftAxis1);
+		leftAxis1Shared->SetShareVisible(true);
+
+		// create left axis, that will be shared between two plots
+		NumberAxis *bottomAxisN = new NumberAxis(AXIS_BOTTOM);
+
+		// create axis share for second plot to share leftAxis between plots
+		// by default it will be invisible
+		AxisShare *bottomAxis1 = new AxisShare(bottomAxisN);
+
+		//AxisShare *bottomAxis1Shared = new AxisShare(bottomAxis1);
+		bottomAxis1->SetShareVisible(true);
+
+		// add axes to plot
+		plot2->AddAxis(leftAxis1);
+		plot2->AddAxis(bottomAxis1);
+
+		// link axes and dataset
+		plot2->LinkDataVerticalAxis(0, 0);
+		plot2->LinkDataHorizontalAxis(0, 0);
+
+		// add first plot to multiplot
+		//multiPlot->addPlot(plot2); //ADICIONANDO SEGUNDO PLOT
+
+		//Não estou inserindo os eixos do gráfico de linha
+		//multiPlot->AddAxis(leftAxis1Shared);
+		//multiPlot->AddAxis(bottomAxis1);
+
+		//The end of the second graph
+
+
+		//the beginning of the third graph
+		// XY data for first series
+		wxVector<wxRealPoint> data2;
+
+		data2.push_back(wxRealPoint(0, 2));
+		data2.push_back(wxRealPoint(1, 2));
+		data2.push_back(wxRealPoint(2, 4));
+		data2.push_back(wxRealPoint(3, 3));
+		data2.push_back(wxRealPoint(4, 5));
+		data2.push_back(wxRealPoint(5, 5));
+		data2.push_back(wxRealPoint(6, 7));
+		data2.push_back(wxRealPoint(7, 1));
+		data2.push_back(wxRealPoint(8, 2));
+		data2.push_back(wxRealPoint(9, 0.5));
+		data2.push_back(wxRealPoint(10, 1));
+
+		// colors for first and second datasets
+		//wxColour color1 = wxColour(255, 0, 0);
+		//wxColour color2 = wxColour(0, 0, 255);
+
+		// create xy plot
+		XYPlot *plot = new XYPlot();
+
+		XYSimpleDataset *dataset2 = new XYSimpleDataset();
+
+		dataset2->AddSerie(new XYSerie(data2));
+
+		XYAreaRenderer *renderer2 = new XYAreaRenderer();
+		dataset2->SetRenderer(renderer2);
+		renderer2->SetSerieColour(0, &color2);
+
+		plot->AddDataset(dataset2); // add the second dataset to plot
+
+									// create left axis for first dataset
+									//Desenha os números nos eixos, os seus marcadores e o titulo de cada eixo
+		NumberAxis *leftAxisM = new NumberAxis(AXIS_LEFT);
+		leftAxisM->SetLabelTextColour(color1);
+		leftAxisM->SetTitle("Left Axis");
+		plot->AddAxis(leftAxisM);
+
+		// create top axis for first dataset
+		NumberAxis *topAxisM = new NumberAxis(AXIS_TOP);
+		topAxisM->SetLabelTextColour(color1);
+		topAxisM->SetTitle("Top Axis");
+		plot->AddAxis(topAxisM);
+
+		NumberAxis *rightAxisM = new NumberAxis(AXIS_RIGHT);
+		plot->AddAxis(rightAxisM);
+		NumberAxis *bottomAxisM = new NumberAxis(AXIS_BOTTOM);
+		plot->AddAxis(bottomAxisM);
+
+		// link first dataset with left axis
+		//plot->LinkDataVerticalAxis(1, 0);
+		// link second dataset with right axis
+		plot->LinkDataVerticalAxis(0, 1);
+
+		// link first dataset with top axis
+		//plot->LinkDataHorizontalAxis(1, 0);
+
+		// link second dataset with bottom axis
+		plot->LinkDataHorizontalAxis(0, 1);
+
+
+		//Não estou inserindo os eixos do terceiro gráfico
+		//multiPlot->AddAxis(leftAxis1Shared); //otimizar
+		//multiPlot->AddAxis(bottomAxis1); //otimizar
+
+		//multiPlot->addPlot(plot1); //ADICIONANDO PRIMEIRO PLOT - BARRAS
+		//multiPlot->addPlot(plot2); //ADICIONANDO SEGUNDO PLOT - LINHA
+		//multiPlot->addPlot(plot); //ADICIONANDO TERCEIRO PLOT - AREA
+
+		multiPlot->addPlot(plot); //ADICIONANDO TERCEIRO PLOT - AREA
+		multiPlot->addPlot(plot1); //ADICIONANDO PRIMEIRO PLOT - BARRAS
+		multiPlot->addPlot(plot2); //ADICIONANDO SEGUNDO PLOT - LINHA
+		//the end of the third graph
+
+
+
+		// and finally create chart
+		return new Chart(multiPlot, GetName());
+	}
+};
+
+
 ChartDemo *combinedAxisDemos[] = {
         new CombinedAxisDemo1(),
         new CombinedAxisDemo2(),
 		new CombinedAxisDemo3(),
 		new CombinedAxisDemo4(),
-		new CombinedAxisDemo5()
+		new CombinedAxisDemo5(),
+		new CombinedAxisDemo6()
 };
 int combinedAxisDemosCount = WXSIZEOF(combinedAxisDemos);
