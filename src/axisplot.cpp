@@ -105,11 +105,11 @@ void AxisPlot::AddAxis(Axis *axis)
     }
 
 	//Adding verification to block insertion of an axis in a place that already exists
-	if (verifyExistenceOfAxis(axis->GetLocation()))
+	/*if (verifyExistenceOfAxis(axis->GetLocation()))
 	{
 		wxLogError(wxT("AxisPlot::AddAxis: already exists an axis in this position"));
 		return;
-	}
+	}*/
 
     switch (axis->GetLocation()) {
     case AXIS_LEFT:

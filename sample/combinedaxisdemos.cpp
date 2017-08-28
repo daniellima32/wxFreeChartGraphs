@@ -181,8 +181,8 @@ public:
         plot1->AddDataset(dataset1);
 
         // create left number axes
-        //NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true);
-		NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
+        NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true);
+		//NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
 
 		AxisShare *leftAxis1Shared = new AxisShare(leftAxis1);
 		leftAxis1Shared->SetShareVisible(true);
@@ -248,8 +248,8 @@ public:
 		multiPlot->AddAxis(leftAxis1Shared);
 		multiPlot->AddAxis(bottomAxis1);
 
-		//multiPlot->AddAxis(leftAxis2);  //this
-		//multiPlot->AddAxis(bottomAxis2); //this
+		multiPlot->AddAxis(leftAxis2);  //this
+		multiPlot->AddAxis(bottomAxis2); //this
 		
 
         // and finally create chart
@@ -257,8 +257,83 @@ public:
     }
 };
 
+//Exemplo apenas com barras invertidas
+class CombinedAxisDemo3 : public ChartDemo
+{
+public:
+	CombinedAxisDemo3()
+		: ChartDemo(wxT("Combined axis Demo 2 - bottom axis"))
+	{
+	}
+
+	virtual Chart *Create()
+	{
+		// second plot data
+		double data2[][2] = {
+			{ 45, 40, },
+			{ 23, 16, },
+			{ 35, 60, },
+			{ 15, 7, },
+			{ 5, 20 },
+			{ 66, 4, },
+		};
+
+		AxisMultiPlot *multiPlot = new AxisMultiPlot();
+
+		// create left axis, that will be shared between two plots
+		NumberAxis *numberAxisBottom = new NumberAxis(AXIS_BOTTOM);
+
+		//
+		// create second plot
+		//
+		XYPlot *plot2 = new XYPlot();
+
+		// create dataset
+		XYSimpleDataset *dataset2 = new XYSimpleDataset();
+
+		// and add serie to it
+		dataset2->AddSerie((double *)data2, WXSIZEOF(data2));
+
+		// set histogram renderer to dataset
+		XYHistoRenderer *renderer2 = new XYHistoRenderer();
+		renderer2->SetBarArea(0, new FillAreaDraw(*wxBLACK, *wxGREEN));
+
+		dataset2->SetRenderer(renderer2);
+
+		// add our dataset to plot
+		plot2->AddDataset(dataset2);
+
+		// create left number axes
+		NumberAxis *numberAxisLeft = new NumberAxis(AXIS_LEFT, true); //fica invertido
+		//NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT);
+
+		// create axis share for second plot to share leftAxis between plots
+		AxisShare *axisShareBottom = new AxisShare(numberAxisBottom);
+		// and make it visible for second plot
+		axisShareBottom->SetShareVisible(true);
+
+		// add axes to plot
+		plot2->AddAxis(numberAxisLeft);
+		plot2->AddAxis(axisShareBottom);
+
+		// link axes and dataset
+		plot2->LinkDataVerticalAxis(0, 0);
+		plot2->LinkDataHorizontalAxis(0, 0);
+
+		// add second plot to multiplot
+		multiPlot->addPlot(plot2);
+
+		multiPlot->AddAxis(numberAxisLeft);
+		multiPlot->AddAxis(axisShareBottom);
+
+		// and finally create chart
+		return new Chart(multiPlot, GetName());
+	}
+};
+
 ChartDemo *combinedAxisDemos[] = {
         new CombinedAxisDemo1(),
         new CombinedAxisDemo2(),
+		new CombinedAxisDemo3()
 };
 int combinedAxisDemosCount = WXSIZEOF(combinedAxisDemos);

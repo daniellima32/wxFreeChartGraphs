@@ -10,5 +10,7 @@ c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos
   c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
 c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(214): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
   c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
+c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(295): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
+  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
   demo_vc9.vcxproj -> C:\Users\teste\centralGit\wxFreeChart\wxFreeChartGraphs\sample\vc_mswud\wxFreeChart Demo.exe
   demo_vc9.vcxproj -> vc_mswud\wxFreeChart Demo.pdb (Full PDB)
