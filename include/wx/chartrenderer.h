@@ -35,6 +35,8 @@ public:
 
 	int mirroring(int min, int max, int value);
 
+	void setInverted(bool inverted);
+
     /**
      * Sets color for serie.
      * @param serie serie index
@@ -75,6 +77,7 @@ private:
 
 protected:
 	wxRect rcPlotBackup;
+	bool inverted;
 };
 
 #endif /*RENDERER_H_*/

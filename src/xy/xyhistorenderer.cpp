@@ -27,6 +27,12 @@ void XYHistoRenderer::DrawBar(int serie, wxDC &dc, wxRect rcData, wxCoord x, wxC
 {
     wxRect rcBar;
 
+	//Inversão
+	/*if (inverted)
+	{
+		y = verticalMirroring(y);
+	}*/
+
     if (m_vertical) {
         rcBar.x = x - m_barWidth / 2;
         rcBar.y = y;
@@ -37,8 +43,15 @@ void XYHistoRenderer::DrawBar(int serie, wxDC &dc, wxRect rcData, wxCoord x, wxC
         rcBar.x = rcData.x;
         rcBar.y = y - m_barWidth / 2;
         rcBar.width = x - rcData.x;
-        rcBar.height = m_barWidth;
+        rcBar.height = m_barWidth; //Código original da lib .. está correto?
     }
+
+	//Inversão
+	if (inverted)
+	{
+		rcBar.y = verticalMirroring(rcBar.y);
+		//rcBar.height = verticalMirroring(rcBar.height);
+	}
 
     AreaDraw *barArea = GetBarArea(serie);
     wxCHECK_RET(barArea != NULL, wxT("No bar area draw"));

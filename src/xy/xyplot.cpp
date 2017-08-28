@@ -50,6 +50,7 @@ void XYPlot::DrawXYDataset(wxDC &dc, wxRect rc, XYDataset *dataset)
     wxCHECK_RET(horizAxis != NULL, wxT("no axis for data"));
 
 	renderer->setRcPlotBackup(rcPlotBackup);
+	renderer->setInverted(inverted);
     renderer->Draw(dc, rc, horizAxis, vertAxis, dataset);
 }
 

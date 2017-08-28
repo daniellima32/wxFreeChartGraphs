@@ -16,6 +16,9 @@
 #include <wx/xy/xysimpledataset.h>
 #include <wx/axismultiplot.h>
 #include <wx/multiplot.h>
+#include <wx/category/categorysimpledataset.h>
+#include <wx/bars/barplot.h>
+#include <wx/axis/categoryaxis.h>
 
 /**
  * Combined axis demo.
@@ -268,64 +271,106 @@ public:
 
 	virtual Chart *Create()
 	{
-		// second plot data
-		double data2[][2] = {
-			{ 45, 40, },
-			{ 23, 16, },
-			{ 35, 60, },
-			{ 15, 7, },
-			{ 5, 20 },
-			{ 66, 4, },
+		wxString names[] = { // category names
+			wxT("Cat 1"),
+			wxT("Cat 2"),
+			wxT("Cat 3"),
+			wxT("Cat 4"),
+			wxT("Cat 5"),
 		};
 
+		// serie 1 values - we have only one serie
+		double values[] = {
+			10.0,
+			20.0,
+			5.0,
+			14.0,
+			12.0,
+		};
+
+		// colors for first and second datasets
+		wxColour color1 = wxColour(255, 0, 0);
+		wxColour color2 = wxColour(0, 0, 255);
+
+		// Create dataset
+		CategorySimpleDataset *dataset = new CategorySimpleDataset(names, WXSIZEOF(names));
+
+		// add serie to it
+		dataset->AddSerie(wxT("Serie 0"), values, WXSIZEOF(values));
+
+		// create normal bar type with bar width = 10
+		BarType *barType = new NormalBarType(30); //Deve dizer se inverte ou não aqui
+		barType->setOriented(true);
+
+		// Set bar renderer for it
+		BarRenderer *br1 = new BarRenderer(barType, true);
+
+		dataset->SetRenderer(br1);
+		//br1->SetSerieColour(0, &color1); //do not work with bar
+
+		//BarRenderer *br2 = new BarRenderer(barType2);
+
+
+		//dataset2->SetRenderer(br2);
+		//br2->SetSerieColour(0, &color2); //do not work with bar
+
+		// Why doesn't SetSerieColour work for bars?
+		br1->SetBarDraw(0, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#007F7F"))));
+		//br2->SetBarDraw(1, new FillAreaDraw(*wxTRANSPARENT_PEN, wxBrush(wxColour("#EA4B32"))));
+
+		// Create bar plot
+		BarPlot *plot = new BarPlot();
+
+		// Create left number axis, set it's margins, and add it to plot
+		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT, true);
+		leftAxis->SetMargins(5, 0);
+		plot->AddAxis(leftAxis);
+
+		// Create bottom axis, set it's margins, and add it to plot
+		CategoryAxis *bottomAxis = new CategoryAxis(AXIS_BOTTOM, true);
+		bottomAxis->SetMargins(20, 20);
+		plot->AddAxis(bottomAxis);
+
+		NumberAxis *rightAxis = new NumberAxis(AXIS_RIGHT);
+		rightAxis->SetMargins(5, 0);
+		plot->AddAxis(rightAxis);
+
+		// Create bottom axis, set it's margins, and add it to plot
+		CategoryAxis *topAxis = new CategoryAxis(AXIS_TOP);
+		topAxis->SetMargins(20, 20);
+		plot->AddAxis(topAxis);
+
+		// Add dataset to plot
+		plot->AddDataset(dataset);
+		//plot->AddDataset(dataset2);
+
+		plot->SetBackground(new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
+
+		// Link first dataset with horizontal axis
+		plot->LinkDataHorizontalAxis(0, 0);
+
+		//novo
+		//plot->LinkDataHorizontalAxis(1, 1);
+
+		// Link first dataset with vertical axis
+		plot->LinkDataVerticalAxis(0, 0);
+
+		//novo
+		//plot->LinkDataVerticalAxis(1, 1);
+
+		// Show a legend at the centre-right position.
+		Legend* legend = new Legend(wxCENTER, wxRIGHT, new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
+		plot->SetLegend(legend);
+
+		// Create a custom title.
+		TextElement title(GetName());
+
 		AxisMultiPlot *multiPlot = new AxisMultiPlot();
-
-		//
-		// create second plot
-		//
-		//XYPlot *plot2 = new XYPlot();
-		XYPlot *plot2 = new XYPlot(true); //indicates that tha axis y is inverted
-
-		// create dataset
-		XYSimpleDataset *dataset2 = new XYSimpleDataset();
-
-		// and add serie to it
-		dataset2->AddSerie((double *)data2, WXSIZEOF(data2));
-
-		// set histogram renderer to dataset
-		XYHistoRenderer *renderer2 = new XYHistoRenderer();
-		renderer2->SetBarArea(0, new FillAreaDraw(*wxBLACK, *wxGREEN));
-
-		dataset2->SetRenderer(renderer2);
-
-		// add our dataset to plot
-		plot2->AddDataset(dataset2);
-
-		// create left number axes
-		NumberAxis *numberAxisLeft = new NumberAxis(AXIS_LEFT, true); //fica invertido
-		//NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT);
-
-		// create bottom axis, that will be shared between two plots
-		NumberAxis *numberAxisBottom = new NumberAxis(AXIS_BOTTOM);
-
-		// create axis share for second plot to share leftAxis between plots
-		AxisShare *axisShareBottom = new AxisShare(numberAxisBottom);
-		// and make it visible for second plot
-		axisShareBottom->SetShareVisible(true);
-
-		// add axes to plot
-		plot2->AddAxis(numberAxisLeft);
-		plot2->AddAxis(axisShareBottom);
-
-		// link axes and dataset
-		plot2->LinkDataVerticalAxis(0, 0);
-		plot2->LinkDataHorizontalAxis(0, 0);
-
 		// add second plot to multiplot
-		multiPlot->addPlot(plot2);
+		multiPlot->addPlot(plot);
 
-		multiPlot->AddAxis(numberAxisLeft);
-		multiPlot->AddAxis(axisShareBottom);
+		multiPlot->AddAxis(leftAxis);
+		multiPlot->AddAxis(bottomAxis);
 
 		// and finally create chart
 		return new Chart(multiPlot, GetName());

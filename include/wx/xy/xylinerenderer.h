@@ -88,11 +88,11 @@ public:
     XYLineRenderer(bool oriented = false, bool drawSymbols = false, bool drawLines = true, int defaultWidth = 2, wxPenStyle defaultStyle = wxPENSTYLE_SOLID);
     virtual ~XYLineRenderer();
 
-	int horizontalMirroring(int value);
+	/*int horizontalMirroring(int value);
 
 	int verticalMirroring(int value);
 
-	int mirroring(int min, int max, int value);
+	int mirroring(int min, int max, int value);*/
 
 
 protected:

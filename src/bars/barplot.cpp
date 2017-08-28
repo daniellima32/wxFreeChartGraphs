@@ -67,6 +67,7 @@ void BarPlot::DrawDatasets(wxDC &dc, wxRect rc)
         m_drawGridVertical = verticalBars;
 
 		renderer->setRcPlotBackup(rcPlotBackup);
+		renderer->setInverted(inverted);
         renderer->Draw(dc, rc, horizAxis, vertAxis, verticalBars, dataset);
     }
 }

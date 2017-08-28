@@ -35,6 +35,11 @@ int Renderer::mirroring(int min, int max, int value)
 	return max - interval;
 }
 
+void Renderer::setInverted(bool inverted)
+{
+	this->inverted = inverted;
+}
+
 wxRect Renderer::getRcPlotBackup()
 {
 	return rcPlotBackup;
