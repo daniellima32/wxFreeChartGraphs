@@ -234,6 +234,7 @@ void AxisShare::Draw(wxDC &dc, wxRect rc)
 
 void AxisShare::DrawGridLines(wxDC &dc, wxRect rcData)
 {
+	m_axis->setRcPlotBackup(getRcPlotBackup());
     m_axis->DrawGridLines(dc, rcData);
 }
 

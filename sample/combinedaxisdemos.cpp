@@ -181,7 +181,7 @@ public:
         plot1->AddDataset(dataset1);
 
         // create left number axes
-        //NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true); //se colocar o true ele perde a ref
+        //NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true);
 		NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
 
 		AxisShare *leftAxis1Shared = new AxisShare(leftAxis1);
