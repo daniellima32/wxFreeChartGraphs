@@ -181,7 +181,8 @@ public:
         plot1->AddDataset(dataset1);
 
         // create left number axes
-        NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true); //se colocar o true ele perde a ref
+        //NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT, true); //se colocar o true ele perde a ref
+		NumberAxis *leftAxis1 = new NumberAxis(AXIS_LEFT);
 
 		AxisShare *leftAxis1Shared = new AxisShare(leftAxis1);
 		leftAxis1Shared->SetShareVisible(true);
@@ -244,11 +245,11 @@ public:
         // add second plot to multiplot
         multiPlot->addPlot(plot2);
 
-		//multiPlot->AddAxis(leftAxis1Shared);
-		//multiPlot->AddAxis(bottomAxis1);
+		multiPlot->AddAxis(leftAxis1Shared);
+		multiPlot->AddAxis(bottomAxis1);
 
-		multiPlot->AddAxis(leftAxis2);  //this
-		multiPlot->AddAxis(bottomAxis2); //this
+		//multiPlot->AddAxis(leftAxis2);  //this
+		//multiPlot->AddAxis(bottomAxis2); //this
 		
 
         // and finally create chart

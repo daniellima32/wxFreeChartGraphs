@@ -60,6 +60,8 @@ public:
     AxisPlot();
     virtual ~AxisPlot();
 
+	bool verifyExistenceOfAxis(AXIS_LOCATION location);
+
 	wxRect rcPlotBackup;
 	//int min, max;
 
