@@ -1,20 +1,4 @@
-﻿  combinedaxisdemos.cpp
+﻿  timeseriessiga.cpp
 c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\axis\numberaxis.h(38): warning C4100: 'labelCount': unreferenced formal parameter
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\multiplot.h(57): warning C4100: 'rc': unreferenced formal parameter
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\multiplot.h(57): warning C4100: 'cdc': unreferenced formal parameter
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(66): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(101): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(179): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(218): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(511): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(687): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\combinedaxisdemos.cpp(864): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
   demo_vc9.vcxproj -> C:\Users\teste\centralGit\wxFreeChart\wxFreeChartGraphs\sample\vc_mswud\wxFreeChart Demo.exe
   demo_vc9.vcxproj -> vc_mswud\wxFreeChart Demo.pdb (Full PDB)

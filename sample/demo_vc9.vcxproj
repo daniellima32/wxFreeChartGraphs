@@ -211,6 +211,7 @@
     <ClCompile Include="sigademos2.cpp" />
     <ClCompile Include="sigademos3.cpp" />
     <ClCompile Include="timeseriesdemos.cpp" />
+    <ClCompile Include="timeseriessiga.cpp" />
     <ClCompile Include="titledemos.cpp" />
     <ClCompile Include="xydemos.cpp" />
   </ItemGroup>
