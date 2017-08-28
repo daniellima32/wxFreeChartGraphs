@@ -24,14 +24,14 @@ public:
     XYRenderer();
     virtual ~XYRenderer();
 
-	wxRect getRcPlotBackup();
+	/*wxRect getRcPlotBackup();
 	void setRcPlotBackup(wxRect rect);
 
 	int horizontalMirroring(int value);
 
 	int verticalMirroring(int value);
 
-	int mirroring(int min, int max, int value);
+	int mirroring(int min, int max, int value);*/
 
     /**
      * Draws dataset.
@@ -44,7 +44,7 @@ public:
     virtual void Draw(wxDC &dc, wxRect rc, Axis *horizAxis, Axis *vertAxis, XYDataset *dataset) = 0;
 
 protected:
-	wxRect rcPlotBackup;
+	
 };
 
 #endif /*XYRENDERER_H_*/

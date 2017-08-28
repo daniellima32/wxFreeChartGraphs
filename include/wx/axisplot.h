@@ -57,13 +57,15 @@ class WXDLLIMPEXP_FREECHART AxisPlot : public Plot, public DrawObserver, public 
     public ChartPanelObserver
 {
 public:
-    AxisPlot();
+    //AxisPlot();
+	AxisPlot(bool inverted = false);
     virtual ~AxisPlot();
 
 	bool verifyExistenceOfAxis(AXIS_LOCATION location);
 
 	wxRect rcPlotBackup;
 	//int min, max;
+	bool inverted;
 
     /**
      * Adds axis to plot.

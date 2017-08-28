@@ -19,6 +19,31 @@ Renderer::~Renderer()
 {
 }
 
+int Renderer::horizontalMirroring(int value)
+{
+	return mirroring(rcPlotBackup.x, rcPlotBackup.x + rcPlotBackup.width, value);
+}
+
+int Renderer::verticalMirroring(int value)
+{
+	return mirroring(rcPlotBackup.y, rcPlotBackup.y + rcPlotBackup.height, value);
+}
+
+int Renderer::mirroring(int min, int max, int value)
+{
+	int interval = value - min;
+	return max - interval;
+}
+
+wxRect Renderer::getRcPlotBackup()
+{
+	return rcPlotBackup;
+}
+void Renderer::setRcPlotBackup(wxRect rect)
+{
+	rcPlotBackup = wxRect(rect);
+}
+
 void Renderer::SetSerieColour(size_t serie, wxColour *colour)
 {
     m_serieColours[serie] = *colour;

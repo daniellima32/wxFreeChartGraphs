@@ -280,13 +280,11 @@ public:
 
 		AxisMultiPlot *multiPlot = new AxisMultiPlot();
 
-		// create left axis, that will be shared between two plots
-		NumberAxis *numberAxisBottom = new NumberAxis(AXIS_BOTTOM);
-
 		//
 		// create second plot
 		//
-		XYPlot *plot2 = new XYPlot();
+		//XYPlot *plot2 = new XYPlot();
+		XYPlot *plot2 = new XYPlot(true); //indicates that tha axis y is inverted
 
 		// create dataset
 		XYSimpleDataset *dataset2 = new XYSimpleDataset();
@@ -306,6 +304,9 @@ public:
 		// create left number axes
 		NumberAxis *numberAxisLeft = new NumberAxis(AXIS_LEFT, true); //fica invertido
 		//NumberAxis *leftAxis2 = new NumberAxis(AXIS_LEFT);
+
+		// create bottom axis, that will be shared between two plots
+		NumberAxis *numberAxisBottom = new NumberAxis(AXIS_BOTTOM);
 
 		// create axis share for second plot to share leftAxis between plots
 		AxisShare *axisShareBottom = new AxisShare(numberAxisBottom);

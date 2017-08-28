@@ -30,7 +30,8 @@ WX_DEFINE_EXPORTED_OBJARRAY(DataAxisLinkArray)
 } while (0)
 
 
-AxisPlot::AxisPlot()
+//AxisPlot::AxisPlot()
+AxisPlot::AxisPlot(bool inverted)
 {
     m_legendPlotGap = 2;
 
@@ -42,6 +43,8 @@ AxisPlot::AxisPlot()
     m_dataBackground = NULL;
     
     SetBackground(new FillAreaDraw(wxPen(DEFAULT_AXIS_BORDER_COLOUR)));
+
+	this->inverted = inverted;
 }
 
 AxisPlot::~AxisPlot()

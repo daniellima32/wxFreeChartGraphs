@@ -9,8 +9,11 @@
 
 #include <wx/xy/xyplot.h>
 
-XYPlot::XYPlot()
+
+//XYPlot::XYPlot()
+XYPlot::XYPlot(bool inverted)
 {
+	this->inverted = inverted;
 }
 
 XYPlot::~XYPlot()

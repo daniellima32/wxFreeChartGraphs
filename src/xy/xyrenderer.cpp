@@ -19,7 +19,7 @@ XYRenderer::~XYRenderer()
 {
 }
 
-int XYRenderer::horizontalMirroring(int value)
+/*int XYRenderer::horizontalMirroring(int value)
 {
 	return mirroring(rcPlotBackup.x, rcPlotBackup.x + rcPlotBackup.width, value);
 }
@@ -42,4 +42,4 @@ wxRect XYRenderer::getRcPlotBackup()
 void XYRenderer::setRcPlotBackup(wxRect rect)
 {
 	rcPlotBackup = wxRect(rect);
-}
+}*/
