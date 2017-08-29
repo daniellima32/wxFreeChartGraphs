@@ -727,6 +727,7 @@ public:
 		// add left number and bottom date axes
 		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
 		DateAxis *bottomAxis = new DateAxis(AXIS_BOTTOM);
+		bottomAxis->SetMargins(20, 20);
 
 		bottomAxis->SetVerticalLabelText(true);
 		bottomAxis->SetDateFormat(wxT("%d-%m"));
@@ -798,8 +799,8 @@ public:
 
 		multiPlot->addPlot(plot2); //Adicionando segundo gráfico de linha
 
-		multiPlot->AddAxis(leftAxis2); //adiciona eixo da esquerda do gráfico de linha
-		//multiPlot->AddAxis(bottomAxis2); //adiciona eixo de baixo do gráfico de linha ..this
+		//multiPlot->AddAxis(leftAxis2); //adiciona eixo da esquerda do gráfico de linha
+		//multiPlot->AddAxis(bottomAxis2); //adiciona eixo de baixo do gráfico de linha ..this[TODO]
 
 		//fim da configuração do gráfico 2
 
@@ -871,7 +872,8 @@ public:
 		multiPlot->addPlot(plot3); //Adicionando segundo gráfico de linha
 
 		//não adiciono eixo nenhum
-		//multiPlot->AddAxis(leftAxis2);
+		//multiPlot->AddAxis(leftAxisCat); //[TODO]
+		//multiPlot->AddAxis(bottomAxisCat); //[TODO]
 
 		//fim da conf do gráfico 3
 
