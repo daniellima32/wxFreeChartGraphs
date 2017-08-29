@@ -12,6 +12,7 @@
 #include <wx/axis/categoryaxis.h>
 #include <wx/axis/numberaxis.h>
 #include <wx/axis/dateaxis.h>
+#include <wx/xy/xysimpledataset.h>
 
 BarPlot::BarPlot()
 {
@@ -35,8 +36,8 @@ bool BarPlot::AcceptDataset(Dataset *dataset)
 void BarPlot::DrawDatasets(wxDC &dc, wxRect rc)
 {
     for (size_t nData = 0; nData < GetDatasetCount(); nData++) {
-        CategoryDataset *dataset = (CategoryDataset *) GetDataset(nData);
-        BarRenderer *renderer = dataset->GetRenderer();
+        CategoryDataset *dataset = (CategoryDataset *) GetDataset(nData); //original
+        BarRenderer *renderer = dataset->GetRenderer(); //origin
         wxCHECK_RET(renderer != NULL, wxT("no renderer for data"));
 
         Axis *vertAxis = GetDatasetVerticalAxis(dataset);
@@ -67,6 +68,7 @@ void BarPlot::DrawDatasets(wxDC &dc, wxRect rc)
         m_drawGridVertical = verticalBars;
 
 		renderer->setRcPlotBackup(rcPlotBackup);
+		renderer->setInverted(inverted);
         renderer->Draw(dc, rc, horizAxis, vertAxis, verticalBars, dataset);
     }
 }

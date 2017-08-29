@@ -161,7 +161,7 @@ double Axis::ToData(wxDC& WXUNUSED(dc), int minCoord, int gRange, wxCoord g)
 // AxisShare
 //
 AxisShare::AxisShare(Axis *axis)
-: Axis(axis->GetLocation())
+: Axis(axis->GetLocation(), axis->isOriented())
 {
     m_axis = axis;
     m_axis->m_shareCount++;
@@ -234,6 +234,7 @@ void AxisShare::Draw(wxDC &dc, wxRect rc)
 
 void AxisShare::DrawGridLines(wxDC &dc, wxRect rcData)
 {
+	m_axis->setRcPlotBackup(getRcPlotBackup());
     m_axis->DrawGridLines(dc, rcData);
 }
 

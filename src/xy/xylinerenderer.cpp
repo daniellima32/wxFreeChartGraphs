@@ -177,7 +177,7 @@ void XYLineRenderer::DrawLines(wxDC &dc, wxRect rc, Axis *horizAxis, Axis *vertA
   }
 }
 
-int XYLineRenderer::horizontalMirroring(int value)
+/*int XYLineRenderer::horizontalMirroring(int value)
 {
 	return mirroring(rcPlotBackup.x, rcPlotBackup.x + rcPlotBackup.width, value);
 }
@@ -191,7 +191,7 @@ int XYLineRenderer::mirroring(int min, int max, int value)
 {
 	int interval = value - min;
 	return max - interval;
-}
+}*/
 
 //
 // XYLineStepRenderer
@@ -248,6 +248,12 @@ void XYLineStepRenderer::DrawLines(wxDC &dc, wxRect rc, Axis *horizAxis, Axis *v
             yg0 = vertAxis->ToGraphics(dc, rc.y, rc.height, y0);
             xg1 = horizAxis->ToGraphics(dc, rc.x, rc.width, x1);
             yg1 = vertAxis->ToGraphics(dc, rc.y, rc.height, y1);
+
+			if (inverted)
+			{
+				yg0 = verticalMirroring(yg0);
+				yg1 = verticalMirroring(yg1);
+			}
 
             dc.DrawLine(xg0, yg0, xg1, yg1);
         }

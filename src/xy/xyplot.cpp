@@ -9,8 +9,11 @@
 
 #include <wx/xy/xyplot.h>
 
-XYPlot::XYPlot()
+
+//XYPlot::XYPlot()
+XYPlot::XYPlot(bool inverted)
 {
+	this->inverted = inverted;
 }
 
 XYPlot::~XYPlot()
@@ -47,6 +50,7 @@ void XYPlot::DrawXYDataset(wxDC &dc, wxRect rc, XYDataset *dataset)
     wxCHECK_RET(horizAxis != NULL, wxT("no axis for data"));
 
 	renderer->setRcPlotBackup(rcPlotBackup);
+	renderer->setInverted(inverted);
     renderer->Draw(dc, rc, horizAxis, vertAxis, dataset);
 }
 

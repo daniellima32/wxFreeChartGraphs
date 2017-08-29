@@ -22,7 +22,8 @@
 class WXDLLIMPEXP_FREECHART XYPlot : public AxisPlot
 {
 public:
-    XYPlot();
+    //XYPlot();
+	XYPlot(bool inverted = false);
     virtual ~XYPlot();
 
 protected:

@@ -1,18 +1,4 @@
-﻿  sigademos3.cpp
+﻿  timeseriessiga.cpp
 c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\axis\numberaxis.h(38): warning C4100: 'labelCount': unreferenced formal parameter
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(78): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(83): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(253): warning C4996: 'XYSimpleDataset::SetSerieName': deprecated: Use GetSeries()->SetName() instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(132): note: see declaration of 'XYSimpleDataset::SetSerieName'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(256): warning C4996: 'XYSimpleDataset::SetSerieName': deprecated: Use GetSeries()->SetName() instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(132): note: see declaration of 'XYSimpleDataset::SetSerieName'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(451): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(556): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\sample\sigademos3.cpp(658): warning C4996: 'XYSimpleDataset::AddSerie': deprecated: Use AddSerie(new XYSerie(const wxVector&<wxRealPoint>)) instead.
-  c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\xy\xysimpledataset.h(110): note: see declaration of 'XYSimpleDataset::AddSerie'
   demo_vc9.vcxproj -> C:\Users\teste\centralGit\wxFreeChart\wxFreeChartGraphs\sample\vc_mswud\wxFreeChart Demo.exe
   demo_vc9.vcxproj -> vc_mswud\wxFreeChart Demo.pdb (Full PDB)

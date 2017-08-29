@@ -26,6 +26,17 @@ public:
 
     virtual ~Renderer();
 
+	wxRect getRcPlotBackup();
+	void setRcPlotBackup(wxRect rect);
+
+	int horizontalMirroring(int value);
+
+	int verticalMirroring(int value);
+
+	int mirroring(int min, int max, int value);
+
+	void setInverted(bool inverted);
+
     /**
      * Sets color for serie.
      * @param serie serie index
@@ -63,6 +74,10 @@ public:
 private:
     ColorMap m_serieColours;
     SymbolMap m_serieSymbols;
+
+protected:
+	wxRect rcPlotBackup;
+	bool inverted;
 };
 
 #endif /*RENDERER_H_*/

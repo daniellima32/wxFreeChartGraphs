@@ -65,5 +65,8 @@
     <ClCompile Include="sigademos3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="timeseriessiga.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

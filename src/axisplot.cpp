@@ -30,7 +30,8 @@ WX_DEFINE_EXPORTED_OBJARRAY(DataAxisLinkArray)
 } while (0)
 
 
-AxisPlot::AxisPlot()
+//AxisPlot::AxisPlot()
+AxisPlot::AxisPlot(bool inverted)
 {
     m_legendPlotGap = 2;
 
@@ -42,6 +43,8 @@ AxisPlot::AxisPlot()
     m_dataBackground = NULL;
     
     SetBackground(new FillAreaDraw(wxPen(DEFAULT_AXIS_BORDER_COLOUR)));
+
+	this->inverted = inverted;
 }
 
 AxisPlot::~AxisPlot()
@@ -68,6 +71,30 @@ AxisPlot::~AxisPlot()
     wxDELETE(m_crosshair);
 }
 
+bool AxisPlot::verifyExistenceOfAxis(AXIS_LOCATION location)
+{
+	switch (location)
+	{
+	case AXIS_LEFT:
+		if(m_leftAxes.size() > 0)
+			return true;
+		break;
+	case AXIS_RIGHT:
+		if (m_rightAxes.size() > 0)
+			return true;
+		break;
+	case AXIS_TOP:
+		if (m_topAxes.size() > 0)
+			return true;
+		break;
+	case AXIS_BOTTOM:
+		if (m_bottomAxes.size() > 0)
+			return true;
+	}
+
+	return false;
+}
+
 void AxisPlot::SetDataBackground(AreaDraw *dataBackground)
 {
     SetBackground(dataBackground);
@@ -79,6 +106,13 @@ void AxisPlot::AddAxis(Axis *axis)
         wxLogError(wxT("AxisPlot::AddAxis: axis unacceptable"));
         return ;
     }
+
+	//Adding verification to block insertion of an axis in a place that already exists
+	/*if (verifyExistenceOfAxis(axis->GetLocation()))
+	{
+		wxLogError(wxT("AxisPlot::AddAxis: already exists an axis in this position"));
+		return;
+	}*/
 
     switch (axis->GetLocation()) {
     case AXIS_LEFT:

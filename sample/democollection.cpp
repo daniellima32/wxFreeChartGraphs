@@ -55,6 +55,10 @@ extern int sigaDemos2Count;
 extern ChartDemo *sigaDemos3[];
 extern int sigaDemos3Count;
 
+//time series of siga
+extern ChartDemo *timeSeriesSigaDemos[];
+extern int timeSeriesSigaDemosCount;
+
 static DemoCollection instance;
 
 /**
@@ -121,7 +125,8 @@ static Category *cats[] = {
     new Category(wxT("Pie plots"), pieplotDemos, pieplotDemosCount),
 	new Category(wxT("SIGA Demos"), sigaDemos, sigaDemosCount),
 	new Category(wxT("SIGA Demos 2"), sigaDemos2, sigaDemos2Count),
-	new Category(wxT("SIGA Demos 3"), sigaDemos3, sigaDemos3Count)
+	new Category(wxT("SIGA Demos 3"), sigaDemos3, sigaDemos3Count),
+	new Category(wxT("time series SIGA"), timeSeriesSigaDemos, timeSeriesSigaDemosCount),
 };
 
 //
