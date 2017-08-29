@@ -74,7 +74,8 @@ bool AxisMultiPlot::AcceptAxis(Axis * axis)
 
 bool AxisMultiPlot::AcceptDataset(Dataset * dataset)
 {
-	return false;
+	//return false;
+	return true;
 }
 
 void AxisMultiPlot::DrawDatasets(wxDC & dc, wxRect rc)
