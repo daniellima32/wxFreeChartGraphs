@@ -21,6 +21,12 @@
 
 #include <wx/xy/xyarearenderer.h>
 
+#include <wx/category/categorysimpledataset.h>
+
+#include <wx/bars/barplot.h>
+
+#include <wx/axis/categoryaxis.h>
+
 /**
  *
  */
@@ -373,10 +379,211 @@ public:
 	}
 };
 
+//fake example of lib that uses data
+/**
+* Layered date bars demo.
+*/
+class TimeSerieSiga4 : public ChartDemo
+{
+public:
+	TimeSerieSiga4()
+		: ChartDemo(wxT("Example of lib that uses text as data with Bar"))
+	{
+	}
+
+	virtual Chart *Create()
+	{
+		// TODO: !!! remake this demo to use dates, not string representation of years!
+		wxString names[] = { // category names
+			wxT("2010"),
+			wxT("2011"),
+			wxT("2012"),
+			wxT("2013"),
+			wxT("2014"),
+			wxT("2015"),
+			wxT("2016"),
+			wxT("2017"),
+		};
+
+		// serie 1 values
+		double values1[] = {
+			771994,    718712,    682422,    713415,    807516,    894631,    1023109, 1148481,
+		};
+
+		// serie 2 values
+		double values2[] = {
+			298603,    286184,    292299,    304342,    353072,    389122,    433905,    497245,
+		};
+
+
+		// Create dataset
+		CategorySimpleDataset *dataset = new CategorySimpleDataset(names, WXSIZEOF(names));
+
+		// add two series to it
+		dataset->AddSerie(wxT("Goods"), values1, WXSIZEOF(values1));
+		dataset->AddSerie(wxT("Services"), values2, WXSIZEOF(values2));
+
+		// create layered bar type with width=20 and base=0
+		BarType *barType = new LayeredBarType(30, 0);
+
+		// Set bar renderer for it, with layered bar type
+		BarRenderer *renderer = new BarRenderer(barType);
+
+		// Some eye-candy: gradient bars.
+		renderer->SetBarDraw(0, new GradientAreaDraw(*wxTRANSPARENT_PEN, DEFAULT_BAR_FILL_COLOUR_0,
+			DEFAULT_BAR_FILL_COLOUR_0.ChangeLightness(50), wxSOUTH));
+		renderer->SetBarDraw(1, new GradientAreaDraw(*wxTRANSPARENT_PEN, DEFAULT_BAR_FILL_COLOUR_1,
+			DEFAULT_BAR_FILL_COLOUR_1.ChangeLightness(50), wxSOUTH));
+
+		// assign renderer to dataset
+		dataset->SetRenderer(renderer);
+
+		// Create bar plot
+		BarPlot *plot = new BarPlot();
+
+		// Add left number axis
+		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+
+		///// leftAxis Experiments.
+		leftAxis->SetMargins(20, 0);
+		// leftAxis->SetMajorLabelSteps(5);
+		leftAxis->SetMinorIntervalCount(0);
+		// leftAxis->SetLabelSkip(5);
+
+		plot->AddAxis(leftAxis);
+
+		// Add bottom category axis
+		CategoryAxis *bottomAxis = new CategoryAxis(AXIS_BOTTOM);
+		bottomAxis->SetMargins(20, 20);
+		bottomAxis->SetVerticalLabelText(true);
+		plot->AddAxis(bottomAxis);
+
+		// Add dataset to plot
+		plot->AddDataset(dataset);
+
+		// Link first dataset with first horizontal axis
+		plot->LinkDataHorizontalAxis(0, 0);
+
+		// Link first dataset with first vertical axis
+		plot->LinkDataVerticalAxis(0, 0);
+
+		// Set legend
+		plot->SetLegend(new Legend(wxCENTER, wxRIGHT));
+
+		// Experiments.
+		plot->SetDrawGrid(true, false);
+
+		plot->SetBackground(new FillAreaDraw(*wxGREEN_PEN, *wxBLUE_BRUSH));
+		plot->SetDataBackground(new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
+
+		// and finally construct and return chart
+		return new Chart(plot, wxT("USA Export Goods / Services"));;
+	}
+};
+
+class TimeSerieSiga5 : public ChartDemo
+{
+public:
+	TimeSerieSiga5()
+		: ChartDemo(wxT("Example with Bar (text) using just one data"))
+	{
+	}
+
+	virtual Chart *Create()
+	{
+		// TODO: !!! remake this demo to use dates, not string representation of years!
+		wxString names[] = { // category names
+			wxT("2010"),
+			wxT("2011"),
+			wxT("2012"),
+			wxT("2013"),
+			wxT("2014"),
+			wxT("2015"),
+			wxT("2016"),
+			wxT("2017"),
+		};
+
+		// serie 1 values
+		double values1[] = {
+			771994,    718712,    682422,    713415,    807516,    894631,    1023109, 1148481,
+		};
+
+		// serie 2 values
+		/*double values2[] = {
+			298603,    286184,    292299,    304342,    353072,    389122,    433905,    497245,
+		};*/
+
+
+		// Create dataset
+		CategorySimpleDataset *dataset = new CategorySimpleDataset(names, WXSIZEOF(names));
+
+		// add two series to it
+		dataset->AddSerie(wxT("Goods"), values1, WXSIZEOF(values1));
+		//dataset->AddSerie(wxT("Services"), values2, WXSIZEOF(values2));
+
+		// create layered bar type with width=20 and base=0
+		BarType *barType = new LayeredBarType(30, 0);
+
+		// Set bar renderer for it, with layered bar type
+		BarRenderer *renderer = new BarRenderer(barType);
+
+		// Some eye-candy: gradient bars.
+		renderer->SetBarDraw(0, new GradientAreaDraw(*wxTRANSPARENT_PEN, DEFAULT_BAR_FILL_COLOUR_0,
+			DEFAULT_BAR_FILL_COLOUR_0.ChangeLightness(50), wxSOUTH));
+		renderer->SetBarDraw(1, new GradientAreaDraw(*wxTRANSPARENT_PEN, DEFAULT_BAR_FILL_COLOUR_1,
+			DEFAULT_BAR_FILL_COLOUR_1.ChangeLightness(50), wxSOUTH));
+
+		// assign renderer to dataset
+		dataset->SetRenderer(renderer);
+
+		// Create bar plot
+		BarPlot *plot = new BarPlot();
+
+		// Add left number axis
+		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+
+		///// leftAxis Experiments.
+		leftAxis->SetMargins(20, 0);
+		// leftAxis->SetMajorLabelSteps(5);
+		leftAxis->SetMinorIntervalCount(0);
+		// leftAxis->SetLabelSkip(5);
+
+		plot->AddAxis(leftAxis);
+
+		// Add bottom category axis
+		CategoryAxis *bottomAxis = new CategoryAxis(AXIS_BOTTOM);
+		bottomAxis->SetMargins(20, 20);
+		bottomAxis->SetVerticalLabelText(true);
+		plot->AddAxis(bottomAxis);
+
+		// Add dataset to plot
+		plot->AddDataset(dataset);
+
+		// Link first dataset with first horizontal axis
+		plot->LinkDataHorizontalAxis(0, 0);
+
+		// Link first dataset with first vertical axis
+		plot->LinkDataVerticalAxis(0, 0);
+
+		// Set legend
+		plot->SetLegend(new Legend(wxCENTER, wxRIGHT));
+
+		// Experiments.
+		plot->SetDrawGrid(true, false);
+
+		plot->SetBackground(new FillAreaDraw(*wxGREEN_PEN, *wxBLUE_BRUSH));
+		plot->SetDataBackground(new FillAreaDraw(*wxTRANSPARENT_PEN, *wxTRANSPARENT_BRUSH));
+
+		// and finally construct and return chart
+		return new Chart(plot, wxT("USA Export Goods / Services"));;
+	}
+};
 
 ChartDemo *timeSeriesSigaDemos[] = {
     new TimeSerieSiga1(),
 	new TimeSerieSiga2(),
 	new TimeSerieSiga3(),
+	new TimeSerieSiga4(),
+	new TimeSerieSiga5()
 };
 int timeSeriesSigaDemosCount = WXSIZEOF(timeSeriesSigaDemos);
