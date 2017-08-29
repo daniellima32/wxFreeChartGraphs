@@ -952,6 +952,7 @@ public:
 									// create left axis for first dataset
 									//Desenha os números nos eixos, os seus marcadores e o titulo de cada eixo
 		NumberAxis *leftAxis = new NumberAxis(AXIS_LEFT);
+		//leftAxis->SetMargins(50, 120); //TESTE
 		leftAxis->SetLabelTextColour(color1);
 		leftAxis->SetTitle("Left Axis");
 		plot->AddAxis(leftAxis);
