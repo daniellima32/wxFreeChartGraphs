@@ -1,4 +1,0 @@
-﻿  timeseriessiga.cpp
-c:\users\teste\centralgit\wxfreechart\wxfreechartgraphs\include\wx\axis\numberaxis.h(38): warning C4100: 'labelCount': unreferenced formal parameter
-  demo_vc9.vcxproj -> C:\Users\teste\centralGit\wxFreeChart\wxFreeChartGraphs\sample\vc_mswud\wxFreeChart Demo.exe
-  demo_vc9.vcxproj -> vc_mswud\wxFreeChart Demo.pdb (Full PDB)
