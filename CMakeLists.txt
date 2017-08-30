@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.8)
+project(wxFreeChartDemo)
+#Output Directories
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+IF(WIN32)
+SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows")
+ENDIF(WIN32)
+include_directories(include)
+#wxWidgets
+find_package(wxWidgets REQUIRED aui adv core net base)
+include(${wxWidgets_USE_FILE})
+add_subdirectory(src)
+add_subdirectory(sample)
